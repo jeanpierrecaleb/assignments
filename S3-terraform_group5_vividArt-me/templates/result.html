@@ -10,11 +10,23 @@
 <body>
     <h1>Image Processing Result</h1>
 
-    <h2>Original Image</h2>
-    <img src="{{ original_url }}" alt="Original Image" style="max-width: 50%;">
+    <!-- <h2>Original Image</h2>
+    <img src="{{ original_url }}" alt="Original Image" style="max-width: 50%;"> -->
 
     <h2>Processed Image</h2>
-    <a href="{{ processed_url }}" target="_blank">View Processed Image in New Window</a>
+
+    {% if processed_url %}
+        <p><strong>Processed Image:</strong></p>
+        <img src="{{ processed_url }}" alt="Processed Image">        
+    {% else %}
+        <p>Error loading processed image.</p>
+    {% endif %}
+        <a href="{{ processed_url }}" target="_blank">Download and View Processed Image in New Window</a>
+        <p><a href="{{ url_for('index') }}">Back to Upload</a></p>
+        <p><a href="#">More tools</a></p>
+
+
+
 </body>
 
 </html>

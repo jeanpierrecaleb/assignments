@@ -8,11 +8,15 @@ app = Flask(__name__)
 
 # Define the S3 bucket name
 S3_BUCKET_NAME = 'mybucket-app'
-
+ACCESS_KEY = 'AKIAXWTWKONYHWT4HHWZ'
+SECRET_KEY = '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'
 # Function to upload a file to S3
 def upload_to_s3(file, filename):
     try:
-        s3 = boto3.client('s3')
+        #s3 = boto3.client('s3')
+        s3 = boto3.client('s3',
+        aws_access_key_id=ACCESS_KEY,
+        aws_secret_access_key=SECRET_KEY)
         s3.upload_fileobj(file, S3_BUCKET_NAME, filename)
     except Exception as e:
         print(f"Error uploading to S3: {e}")
@@ -22,7 +26,9 @@ def upload_to_s3(file, filename):
 # Function to get a pre-signed URL for a file in S3
 def get_s3_url(filename):
     try:
-        s3 = boto3.client('s3')
+        s3 = boto3.client('s3',
+        aws_access_key_id=ACCESS_KEY,
+        aws_secret_access_key=SECRET_KEY)
         url = s3.generate_presigned_url('get_object', Params={'Bucket': S3_BUCKET_NAME, 'Key': filename})
         return url
     except Exception as e:
