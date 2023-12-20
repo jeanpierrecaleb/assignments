@@ -112,7 +112,7 @@ resource "aws_s3_bucket_public_access_block" "my_s3_bucket" {
 resource "aws_instance" "my_instance" {
   ami                    = "ami-00b8917ae86a424c9" # Amazon Linux 2 AMI, change to the desired AMI
   instance_type          = "t2.micro" # Change this to your desired instance type
-  key_name               = "my-key-app" # Change this to your key pair name
+  key_name               = "app-image-kp" # Change this to your key pair name
 
   vpc_security_group_ids = [aws_security_group.my_security_group.id]
   subnet_id              = aws_subnet.my_subnet.id
