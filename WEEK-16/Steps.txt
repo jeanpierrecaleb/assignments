@@ -1,3 +1,0 @@
-Follow image 1 to 21 - Github
-Url to the website or html on the Bucket
-http://mys3solution.s3-website.eu-north-1.amazonaws.com/
