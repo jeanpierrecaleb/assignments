@@ -24,7 +24,7 @@ def index():
     cursor2.execute('SELECT * FROM week_attendance')
     getall_week_attendances = cursor2.fetchall()
     number_week_attendances = len(getall_week_attendances)
-    return render_template("dashboard.html", items=data, nbs=number_of_students, 
+    return render_template("index.html", items=data, nbs=number_of_students, 
             nbas=number_of_assignments,nsa=number_score_assignments,nwa=number_week_attendances)
     
 
