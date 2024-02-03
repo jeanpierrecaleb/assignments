@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- link rel="stylesheet" href="{{ url_for('static', filename='bootstrap5.css') }}" defer=""> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Sidebar-->
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <!-- Datatable -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+        rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <!------ Include the above in your HEAD tag ---------->
+    <div class="wrapper">
+        <!-- Sidebar -->
+        {% include 'sidebar.html' %}
+        <div class="main p-3">
+            <div class="text-center">
+                <h1>
+                    Student dashboard
+                </h1>
+            </div>
+
+            <!-- index.html -->
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="alert alert-success" role="alert">
+                {{ messages[0] }}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+
+            <!-- Add filters here -->
+
+            <!-- Add filters here -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="studentsFilter" class="form-label">Student:</label>
+                    <input type="text" class="form-control" id="studentsFilter" placeholder="Enter student name">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="cohortFilter" class="form-label">Filter by Cohort:</label>
+                    <select class="form-select" id="cohortFilter">
+                        <option value="" selected>All Cohorts</option>
+                        <option value="CohortA">Cohort A</option>
+                        <option value="CohortB">Cohort B</option>
+                        <!-- Add more cohorts as needed -->
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card board1 fill">
+                        <div class="card-body">
+                            <!-- <a href="planning/listwpa" class="text-success"> -->
+                            <div class="dash-widget-header">
+                                <div>
+                                    <h3 class="card_widget_header">{{ nbs }}</h3>
+                                    <h6 title="Students" class="text-muted">STUDENTS</h6>
+                                </div>
+                                <div class="ml-auto mt-md-3 mt-lg-0"> <span class="opacity-7 text-muted"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewbox="0 0 24 24" fill="none" stroke="#009688" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-file-plus">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z">
+                                            </path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                            <line x1="12" y1="18" x2="12" y2="12">
+                                            </line>
+                                            <line x1="9" y1="15" x2="15" y2="15">
+                                            </line>
+                                        </svg></span> </div>
+                            </div>
+                            <!-- </a> -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card board1 fill">
+                        <div class="card-body">
+                            <div class="dash-widget-header">
+                                <div>
+                                    <h3 class="card_widget_header">{{nbas}}</h3>
+                                    <h6 class="text-muted">ASSIGNMENTS</h6>
+                                </div>
+                                <div class="ml-auto mt-md-3 mt-lg-0"> <span class="opacity-7 text-muted"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewbox="0 0 24 24" fill="none" stroke="#009688" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-dollar-sign">
+                                            <line x1="12" y1="1" x2="12" y2="23">
+                                            </line>
+                                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
+                                            </path>
+                                        </svg></span> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card board1 fill">
+                        <div class="card-body">
+                            <div class="dash-widget-header">
+                                <div>
+                                    <h3 class="card_widget_header">{{nwa}}</h3>
+                                    <h6 class="text-muted">ATTENDANCES</h6>
+                                </div>
+                                <div class="ml-auto mt-md-3 mt-lg-0"> <span class="opacity-7 text-muted"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewbox="0 0 24 24" fill="none" stroke="#009688" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-user-plus">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="8.5" cy="7" r="4"></circle>
+                                            <line x1="20" y1="8" x2="20" y2="14">
+                                            </line>
+                                            <line x1="23" y1="11" x2="17" y2="11">
+                                            </line>
+                                        </svg></span> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card board1 fill">
+                        <div class="card-body">
+                            <div class="dash-widget-header">
+                                <div>
+                                    <h3 class="card_widget_header">{{nsa}}</h3>
+                                    <h6 class="text-muted">SCORES</h6>
+                                </div>
+                                <div class="ml-auto mt-md-3 mt-lg-0"> <span class="opacity-7 text-muted"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewbox="0 0 24 24" fill="none" stroke="#009688" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-globe">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="2" y1="12" x2="22" y2="12">
+                                            </line>
+                                            <path
+                                                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                            </path>
+                                        </svg></span> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h4 class="card-title">ATTENDANCE</h4>
+                        </div>
+                        <div class="card-body">
+                            <!-- <div id="line-chart"></div> -->
+
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+                            <canvas id="myChart" height="300"></canvas>
+
+                            <script>
+                                const ctx = document.getElementById('myChart').getContext('2d');
+                                const myChart = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: ['Present', 'Absent',],
+                                        datasets: [{
+                                            label: [' % of Weekly Attendance'],
+                                            data: [5, 4,
+                                                2, 2
+                                            ],
+                                            backgroundColor: [
+                                                'rgba(255, 99, 132, 0.2)',
+                                                'rgba(54, 162, 235, 0.2)',
+                                            ],
+                                            borderColor: [
+                                                'rgba(255, 99, 132, 1)',
+                                                'rgba(54, 162, 235, 1)',
+                                                /* 'rgba(153, 102, 255, 1)',
+                                                 'rgba(255, 159, 64, 1)'*/
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-md-12 col-lg-6">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h4 class="card-title"> ASSIGNMENTS COMPLETION </h4>
+                        </div>
+                        <div class="card-body">
+                            <!-- <div id="donut-chart" ></div> -->
+
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+                            <canvas id="myChart2" width="10" height="10"></canvas>
+
+
+                            <script>
+                                const ctx2 = document.getElementById('myChart2').getContext('2d');
+                                const myChart2 = new Chart(ctx2, {
+                                    type: 'pie',
+                                    data: {
+                                        labels: ['Done', 'Not submited'],
+                                        datasets: [{
+                                            label: '# of Activities',
+                                            data: [5, 3,
+                                            ],
+                                            backgroundColor: [
+                                                'rgba(144, 238, 144, 0.2)',
+                                                'rgba(255, 99, 132, 0.2)',
+                                                /* 'rgba(54, 162, 235, 0.2)', */
+                                            ],
+                                            borderColor: [
+                                                'rgba(144, 238, 144, 1)',
+                                                'rgba(255, 99, 132, 1)',
+
+
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <!-- Data table -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title text-center">Student list for research</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <a href="{{ url_for('addstudentform')}}" class="btn btn-dark mb-2"></i><i
+                                            class="fa fa-plus" aria-hidden="true"></i> Add </a>
+                                    <!-- <button type="button" class="btn btn-dark w-sm-100" data-bs-toggle="modal" data-bs-target="#createproject"><i class="icofont-plus-circle me-2 fs-6"></i>Create Project</button> -->
+
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="text-sm-end">
+                                        <button type="button" class="btn btn-success mb-2">Export</button>
+                                    </div>
+                                </div>
+
+                                <!-- end col-->
+                            </div>
+
+                            <table id="example" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Mail</th>
+                                        <th>Attendance</th>
+                                        <th>Assignment</th>
+                                        <th>Cohort</th>
+                                        <th>More</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in items %}
+                                    <tr>
+                                        <td>{{ student["id"] }}</td>
+                                        <td>{{ student["name"] }}</td>
+                                        <td>{{ student["email"] }}</td>
+                                        <td>{{ student["attendance_average"] }}</td>
+                                        <td>{{ student["assignment_completion"] }}</td>
+                                        <td>{{ student["cohort"] }}</td>
+                                        <td><button type="button" class="btn btn-primary">More</button></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Mail</th>
+                                        <th>Attendance</th>
+                                        <th>Assignment</th>
+                                        <th>Cohort</th>
+                                        <th>More</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- End sidebar -->
+    <script src="{{ url_for('static', filename='style.js') }}"></script>
+    <!--Sidebar-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+</body>
+
+</html>

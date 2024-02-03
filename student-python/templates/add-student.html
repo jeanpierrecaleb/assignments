@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+     <!-- Sidebar -->
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    
+
+    <div class="wrapper">
+        {% include 'sidebar.html' %}
+
+        <!-- Main content -->
+        <div class="main p-3">
+            <div class="text-center">
+                <h1>Add Student</h1>
+            </div>
+
+            <!-- Add Student Form -->
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{ url_for('add_student') }}" method="post">
+                        <!-- Add your form fields here -->
+                        <div class="mb-3">
+                            <label for="student_name" class="form-label">Student Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="cohort" class="form-label">Cohort</label>
+                            <input type="text" class="form-control" id="cohort" name="cohort" required>
+                        </div>
+                        <!--
+                        <label for="attendance">Attendance Average:</label>
+                        <input type="text" id="attendance" name="attendance" required><br>
+                    
+                        <label for="assignment">Assignment Completion:</label>
+                        <input type="text" id="assignment" name="assignment" required><br>
+                    
+                        <label for="ranking">Ranking:</label>
+                        <input type="text" id="ranking" name="ranking" required><br>
+
+                        Add more fields as needed -->
+
+                        <button type="submit" class="btn btn-primary">Add Student</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='style.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+</body>
+
+</html>
