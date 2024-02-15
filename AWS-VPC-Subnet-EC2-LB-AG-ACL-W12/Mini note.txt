@@ -1,0 +1,49 @@
+Steps
+
+Follow image 1 to 45 reading its title
+as direction to what has been done
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------
+Details
+1-Create VPC inside VPC
+Use the 10.0.0.0/16
+2-Create 4 subnets inside subnets:
+2 public subnets using 10.0.0.0/24 and ...
+2 private subnets
+Make sur the private subnet corresponding to the public are 
+in the same AZ but the two public are in different
+3- Create one EC2 instance in each public subnet
+Let's use Linux 2 AMI for both
+--------------------------------------------------------------------------------
+User data - optional
+#!/bin/bash
+
+ 
+
+# Update the package repository and install necessary packages
+sudo apt-get update
+sudo apt-get install -y apache2
+
+ 
+
+# Create a custom index.html file
+echo "<html><body><h1>Hello EC2 User Data!</h1></body></html>" | sudo tee /var/www/html/index.html
+
+ 
+
+# Start the Apache web server
+sudo systemctl start apache2
+sudo systemctl enable apache2
+---------------
+4-Configure elastic IP for each of them
+
