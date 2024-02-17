@@ -1,2 +1,2 @@
-# assignments
-Azubi assignments and exercises
+# Assignments
+Azubi hands-on labs and projects
