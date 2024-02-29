@@ -1,3 +1,3 @@
 # Assignments
-Azubi hands-on labs and projects
-Needs improvement for now
+- Azubi hands-on labs and projects
+- Recommmandations or suggestions are welcome
